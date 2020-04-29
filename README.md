@@ -13,5 +13,5 @@ docker build -t fileserver:v1 .
 
 ## Step 3: Spin up the container
 ```
-docker run –dit –p 84:80 fileserver:v1
+docker run -dit -p 84:80 fileserver:v1
 ```

@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:latest
 MAINTAINER vincentpham <vincentpham1993@gmail.com>
 
 RUN apt update
@@ -10,10 +10,17 @@ COPY  ./app /app
 RUN cp -vr /app/ /var/www/html/
 WORKDIR /app
 
-CMD systemctl start httpd
+ENV APACHE_RUN_USER user
 
-RUN useradd -m user
-USER user
+ENV APACHE_RUN_USER user
+ENV APACHE_RUN_GROUP user
+ENV APACHE_PID_FILE user /var/run/apache2.pid
+ENV APACHE_RUN_DIR user /var/run/apache2
+ENV APACHE_LOCK_DIR user /var/lock/apache2
+ENV APACHE_LOG_DIR user /var/log/apache2
+ENV LANG C
+
+CMD "/usr/sbin/apache2","-D","FOREGROUND"]
 
 EXPOSE 80
 
