@@ -1,15 +1,19 @@
-FROM ubuntu:lastest
-MAINTAINER anpham <vincentpham1993@gmail.com>
+FROM ubuntu
+MAINTAINER vincentpham <vincentpham1993@gmail.com>
 
-
-COPY ./requirement.txt ./requirement.txt
-RUN apt install apache2
+RUN apt update
+RUN apt install -y apache2 apache2-utils
 
 RUN mkdir /app
+COPY  ./app /app 
+
+RUN cp -vr /app/ /var/www/html/
 WORKDIR /app
 
-COPY ./app /app
+CMD systemctl start httpd
 
-RUN adduser -D user
+RUN useradd -m user
 USER user
+
+EXPOSE 80
 
